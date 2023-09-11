@@ -54,63 +54,79 @@
                 <div class="col-lg-6 col-md-8 mx-auto">
                     <h1 class="fw-light">Codeigniter 4 Gallery</h1>
                     <p class="lead text-muted">A simple module where we can upload any image, view that image and delete that image.</p>
-                    <form class="text-start pt-4" action="gallery/new" method='post' enctype='multipart/form-data'>
+                    <form class="text-start pt-4" action="<?= base_url('new') ?>" method='post' enctype='multipart/form-data'>
                         <div class="mb-3">
                             <input class="form-control form-control-lg" name="image" type="file">
                         </div>
                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+
+                        <?php
+                        if (session()->getFlashdata('error') !== NULL) :
+                            foreach (session()->getFlashdata('error') as $error) :
+                        ?>
+                                <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                                    <li><?= esc($error) ?></li>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                        <?php
+                            endforeach;
+                        endif;
+                        ?>
+
+                        <?php
+                        if (session()->getFlashdata('success') !== NULL) :
+                        ?>
+                            <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+                                <?= session()->getFlashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php
+                        endif;
+                        ?>
                     </form>
+
                 </div>
             </div>
         </section>
 
         <div class="album py-5 bg-light">
             <div class="container">
-                <row class="row row-cols-1">
-                    <div class="col">
-                        <div class="alert alert-info" role="alert">
-                            Sorry! No image found in this gallery
-                        </div>
-                    </div>
-                </row>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
-
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                        <a href="gallery/delete/1" class="btn btn-sm btn-outline-danger">Delete</a>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
+                <?php
+                if (empty($images)) :
+                ?>
+                    <row class="row row-cols-1">
+                        <div class="col">
+                            <div class="alert alert-info" role="alert">
+                                Sorry! No image found in this gallery
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
+                    </row>
+                <?php else : ?>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        <?php
+                        foreach ($images as $image) :
 
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="#" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                        <a href="gallery/delete/1" class="btn btn-sm btn-outline-danger">Delete</a>
+                        ?>
+                            <div class="col">
+                                <div class="card shadow-sm">
+                                    <img src="uploads/<?= $image['name'] ?>" alt="<?= $image['name']  ?>">
+
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <a href="#" class="btn btn-sm btn-outline-secondary">Download</a>
+                                                <a href="gallery/delete/1" class="btn btn-sm btn-outline-danger">Delete</a>
+                                            </div>
+                                            <small class="text-muted"><?= $image['size'] ?> KB</small>
+                                        </div>
                                     </div>
-                                    <small class="text-muted">9 mins</small>
                                 </div>
                             </div>
-                        </div>
+                        <?php
+                        endforeach;
+                        ?>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
 
@@ -128,7 +144,6 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-
 
 </body>
 
