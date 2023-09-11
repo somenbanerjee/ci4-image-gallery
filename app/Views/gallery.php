@@ -53,7 +53,7 @@
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
                     <h1 class="fw-light">A Simple Gallery</h1>
-                    <p class="lead text-muted">Where you can upload any image. After uploading you can view, download and delete that image directly from the files without any database interaction.</p>
+                    <p class="lead text-muted">Where you can upload any image. After uploading you can view, download, and delete that image directly from the files without any database interaction.</p>
                     <form class="text-start pt-4" action="<?= base_url('new') ?>" method='post' enctype='multipart/form-data'>
                         <div class="mb-3">
                             <input class="form-control form-control-lg" name="image" type="file">
