@@ -10,7 +10,7 @@ Learnings:
 
 ## Screenshots
 
-![Codeigniter 4 Image Gallery](writable\uploads\Codeigniter-4-Gallery.png)
+[![Codeigniter-4-Gallery.png](https://i.postimg.cc/BnTDwnhW/Codeigniter-4-Gallery.png)](https://postimg.cc/qN7zN4VQ)
 
 # Built With
 
