@@ -41,7 +41,7 @@
                         <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
                         <circle cx="12" cy="13" r="4" />
                     </svg>
-                    <strong>CI4Gallery</strong>
+                    <strong>CI<span class="text-danger">4</span>Gallery</strong>
                 </a>
             </div>
         </div>
@@ -52,14 +52,16 @@
         <section class="py-3 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Codeigniter 4 Gallery</h1>
-                    <p class="lead text-muted">A simple module where we can upload any image, view that image and delete that image.</p>
+                    <h1 class="fw-light">A Simple Gallery</h1>
+                    <p class="lead text-muted">Where you can upload any image. After uploading you can view, download and delete that image directly from the files without any database interaction.</p>
                     <form class="text-start pt-4" action="<?= base_url('new') ?>" method='post' enctype='multipart/form-data'>
                         <div class="mb-3">
                             <input class="form-control form-control-lg" name="image" type="file">
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
 
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-dark btn-lg">Submit</button>
+                        </div>
                         <?php
                         if (session()->getFlashdata('error') !== NULL) :
                             foreach (session()->getFlashdata('error') as $error) :
@@ -94,10 +96,10 @@
                 <?php
                 if (empty($images)) :
                 ?>
-                    <row class="row row-cols-1">
+                    <row class="row row-cols-1 text-center">
                         <div class="col">
-                            <div class="alert alert-info" role="alert">
-                                Sorry! No image found in this gallery
+                            <div class="alert alert-light" role="alert">
+                                Sorry! No image found in this gallery.
                             </div>
                         </div>
                     </row>
@@ -114,8 +116,8 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                                <a href="#" class="btn btn-sm btn-outline-secondary">Download</a>
-                                                <a href="gallery/delete/1" class="btn btn-sm btn-outline-danger">Delete</a>
+                                                <a href="download/<?= $image['name'] ?>" class="btn btn-sm btn-outline-secondary">Download</a>
+                                                <a href="delete/<?= $image['name'] ?>" class="btn btn-sm btn-outline-danger">Delete</a>
                                             </div>
                                             <small class="text-muted"><?= $image['size'] ?> KB</small>
                                         </div>
@@ -138,7 +140,7 @@
                 <a href="#">Back to top</a>
             </p>
             <p class="mb-1">By Somen Banerjee</p>
-            <p class="mb-0">With Codeigniter 4 and Bootstrap 4.</p>
+            <p class="mb-0">With Codeigniter 4 and Bootstrap 5.3.</p>
         </div>
     </footer>
 

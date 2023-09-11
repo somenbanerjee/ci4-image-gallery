@@ -36,7 +36,6 @@ class GalleryController extends BaseController
                     'is_image[image]',
                     'mime_in[image,image/jpg,image/jpeg,image/gif,image/png,image/webp]',
                     'max_size[image,1000]',
-                    'max_dims[image,1024,768]',
                 ],
             ],
         ];
@@ -50,6 +49,7 @@ class GalleryController extends BaseController
 
         if (!$img->hasMoved()) {
             $fileName = $img->getRandomName();
+
             if ($img->move('uploads/', $fileName)) {
                 $this->session->setFlashdata('success', 'Image uploaded successfully.');
                 return redirect()->to(site_url());
@@ -58,5 +58,21 @@ class GalleryController extends BaseController
 
         $this->session->setFlashdata('error', array('Failed to move the file or it has already been moved'));
         return redirect()->to(site_url());
+    }
+
+    public function delete($imageName)
+    {
+        if (file_exists('uploads/' . $imageName)) {
+            unlink('uploads/' . $imageName);
+        }
+        return redirect()->to(site_url());
+    }
+
+    public function download($imageName)
+    {
+        if (file_exists('uploads/' . $imageName)) {
+            return $this->response->download('uploads/' . $imageName, null);
+        }
+        //return redirect()->to(site_url());
     }
 }
